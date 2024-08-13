@@ -38,7 +38,6 @@ class ChipsInput<T extends Object> extends StatefulWidget {
     this.textAlignVertical,
     this.textDirection,
     this.readOnly = false,
-    ToolbarOptions? toolbarOptions,
     this.showCursor,
     this.autofocus = false,
     this.obscuringCharacter = '•',
@@ -104,18 +103,6 @@ class ChipsInput<T extends Object> extends StatefulWidget {
             'Use keyboardType TextInputType.multiline when using TextInputAction.newline on a multiline TextField.'),
         keyboardType = keyboardType ??
             (maxLines == 1 ? TextInputType.text : TextInputType.multiline),
-        toolbarOptions = toolbarOptions ??
-            (obscureText
-                ? const ToolbarOptions(
-                    selectAll: true,
-                    paste: true,
-                  )
-                : const ToolbarOptions(
-                    copy: true,
-                    cut: true,
-                    selectAll: true,
-                    paste: true,
-                  )),
         super(key: key);
 
   final ChipsInputSuggestions<T> findSuggestions;
@@ -244,13 +231,6 @@ class ChipsInput<T extends Object> extends StatefulWidget {
 
   /// {@macro flutter.widgets.editableText.readOnly}
   final bool readOnly;
-
-  /// Configuration of toolbar options.
-  ///
-  /// If not set, select all and paste will default to be enabled. Copy and cut
-  /// will be disabled if [obscureText] is true. If [readOnly] is true,
-  /// paste and cut will be disabled regardless.
-  final ToolbarOptions toolbarOptions;
 
   /// {@macro flutter.widgets.editableText.showCursor}
   final bool? showCursor;
@@ -402,15 +382,6 @@ class ChipsInput<T extends Object> extends StatefulWidget {
   /// The cursor for a mouse pointer when it enters or is hovering over the
   /// widget.
   ///
-  /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
-  /// [MaterialStateProperty.resolve] is used for the following [MaterialState]s:
-  ///
-  ///  * [MaterialState.error].
-  ///  * [MaterialState.hovered].
-  ///  * [MaterialState.focused].
-  ///  * [MaterialState.disabled].
-  ///
-  /// If this property is null, [MaterialStateMouseCursor.textable] will be used.
   ///
   /// The [mouseCursor] is the only property of [TextField] that controls the
   /// appearance of the mouse pointer. All other properties related to "cursor"
@@ -663,7 +634,6 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
                 textAlignVertical: widget.textAlignVertical,
                 textDirection: widget.textDirection,
                 readOnly: widget.readOnly,
-                toolbarOptions: widget.toolbarOptions,
                 showCursor: widget.showCursor,
                 cursorWidth: widget.cursorWidth,
                 cursorHeight: widget.cursorHeight,
